@@ -1,0 +1,9 @@
+{% extends 'estore/base.html' %}
+
+{% block content %}
+    <ul>
+        {% for product in object_list %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EStore - 線上購物第一選擇</title>
+</head>
+<body>
+{% block navbar %}
+    {% include 'estore/navbar.html' %}
+{% endblock %}
+<div class="page-header">
+    <h1><a href="{% url 'product_list' %}">EStore - 線上購物第一選擇</a></h1>
+</div>
+<div class="content container">
+    {% bootstrap_messages %}
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
