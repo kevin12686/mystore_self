@@ -40,6 +40,7 @@
                 </td>
                 <td>
                     <a href="{% url 'dashboard_product_update' pk=product.id %}">修改</a>
+                    <a href="{% url 'dashboard_product_delete' pk=product.id %}">刪除</a>
                 </td>
             </tr>
         {% endfor %}

@@ -1,0 +1,12 @@
+{% extends 'estore/dashboard_base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div style="padding-bottom: 20px;">
+        <h2> 產品刪除 </h2>
+    </div>
+    <form method="post">
+        {% bootstrap_alert '確定要刪除?' alert_type='danger' dismissable=False %}
+        {% bootstrap_button '確定' button_type='submit' button_class="btn-primary" %}
+    </form>
+{% endblock %}
