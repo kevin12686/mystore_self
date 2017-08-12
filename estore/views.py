@@ -42,9 +42,11 @@ class ProductUpdate(PermissionRequiredMixin, generic.UpdateView):
         messages.success(self.request, '產品已變更')
         return reverse('dashboard_product_update', kwargs=self.kwargs)
 
+
 class ProductDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'estore.delete_product'
     model = Product
+
 
 class UserList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'auth.change_user'
