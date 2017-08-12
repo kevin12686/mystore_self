@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User, Group
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic
 
@@ -46,6 +47,18 @@ class ProductUpdate(PermissionRequiredMixin, generic.UpdateView):
 class ProductDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'estore.delete_product'
     model = Product
+
+
+class ProductAddToCart(generic.DetailView):
+    model = Product
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.request.cart.items.add(self.object)
+
+        messages.success(self.request, '已加入購物車')
+        return redirect('product_detail', pk=self.object.id)
 
 
 class UserList(PermissionRequiredMixin, generic.ListView):
