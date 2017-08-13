@@ -5,11 +5,18 @@
     <div class="row">
         <div class="col-md-12">
             <h2> 購物車 </h2>
+
+            <div style="padding-bottom: 50px">
+                {% url 'cart_clear' as cart_clear_url %}
+                {% bootstrap_button '清空購物車' button_class='btn-lg btn-default pull-right' href=cart_clear_url %}
+            </div>
+
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th colspan="2">商品資訊</th>
                     <th>單價</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +39,12 @@
                         <td>
                             {{ product.price }}
                         </td>
+                        <td>
+                            <form method="post" action="{% url 'product_removefromcart' product.id %}">
+                                {% csrf_token %}
+                                {% bootstrap_button '移除' button_type='submit' button_class='btn-primary btn-danger' %}
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -44,6 +57,7 @@
             <div class="checkout clearfix">
                 {% url 'cart_checkout' as cart_checkout_url %}
                 {% bootstrap_button '確認結帳' button_class='btn-lg btn-danger pull-right' href=cart_checkout_url %}
+
             </div>
         </div>
     </div>

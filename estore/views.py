@@ -19,6 +19,14 @@ class CartDetailFromRequest(generic.DetailView):
         return self.request.cart
 
 
+class CartClean(generic.DetailView):
+    def get_object(self):
+        for product in self.request.cart.items.all():
+            self.request.cart.items.remove(product)
+        messages.success(self.request, '已清空購物車')
+        return self.request.cart
+
+
 class OrderDetailMixin(object):
     def get_object(self):
         return get_object_or_404(self.request.user.order_set, token=uuid.UUID(self.kwargs.get('token')))
@@ -133,6 +141,18 @@ class ProductAddToCart(generic.DetailView):
 
         messages.success(self.request, '已加入購物車')
         return redirect('product_detail', pk=self.object.id)
+
+
+class ProductRemoveFromCart(generic.DetailView):
+    model = Product
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.request.cart.items.remove(self.object)
+
+        messages.success(self.request, '已從購物車移除')
+        return redirect('cart_detail')
 
 
 class UserList(PermissionRequiredMixin, generic.ListView):
