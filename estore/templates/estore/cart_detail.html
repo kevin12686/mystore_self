@@ -7,8 +7,10 @@
             <h2> 購物車 </h2>
 
             <div style="padding-bottom: 50px">
-                {% url 'cart_clear' as cart_clear_url %}
-                {% bootstrap_button '清空購物車' button_class='btn-lg btn-default pull-right' href=cart_clear_url %}
+                <form method="post" action={% url 'cart_clear' %}>
+                    {% csrf_token %}
+                    {% bootstrap_button '清空購物車' button_type='submit' button_class='btn-lg btn-default pull-right' %}
+                </form>
             </div>
 
             <table class="table table-bordered">

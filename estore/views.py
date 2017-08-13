@@ -20,11 +20,14 @@ class CartDetailFromRequest(generic.DetailView):
 
 
 class CartClean(generic.DetailView):
-    def get_object(self):
+    model = Product
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
         for product in self.request.cart.items.all():
             self.request.cart.items.remove(product)
         messages.success(self.request, '已清空購物車')
-        return self.request.cart
+        return redirect('cart_detail')
 
 
 class OrderDetailMixin(object):
