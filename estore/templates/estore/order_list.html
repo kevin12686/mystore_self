@@ -12,7 +12,7 @@
         <tbody>
         {% for object in object_list %}
             <tr>
-                <td><a href={% url 'order_detail' object.token %}>訂單資訊</a></td>
+                <td><a href={% url 'order_detail' object.token %}>{{ object.token }}</a></td>
                 <td>NT : {{ object.total }}</td>
             </tr>
         {% endfor %}
