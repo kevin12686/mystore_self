@@ -30,6 +30,10 @@ class CartClean(generic.DetailView):
         return redirect('cart_detail')
 
 
+class OrderList(generic.ListView):
+    model = Order
+
+
 class OrderDetailMixin(object):
     def get_object(self):
         return get_object_or_404(self.request.user.order_set, token=uuid.UUID(self.kwargs.get('token')))
@@ -94,7 +98,7 @@ class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
         messages.success(self.request, '訂單已生成')
         for product in self.request.cart.items.all():
             self.request.cart.items.remove(product)
-        return reverse('order_detail', kwargs={'token': self.object.token})
+        return reverse('order_list')
 
 
 class ProductList(PermissionRequiredMixin, generic.ListView):

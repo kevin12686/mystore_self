@@ -1,0 +1,22 @@
+{% extends 'estore/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>訂單Token</td>
+            <td>價錢</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td><a href={% url 'order_detail' object.token %}>訂單資訊</a></td>
+                <td>NT : {{ object.total }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
