@@ -92,6 +92,8 @@ class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         messages.success(self.request, '訂單已生成')
+        for product in self.request.cart.items.all():
+            self.request.cart.items.remove(product)
         return reverse('order_detail', kwargs={'token': self.object.token})
 
 
