@@ -12,8 +12,10 @@
         <tbody>
         {% for object in object_list %}
             <tr>
-                <td><a href={% url 'order_detail' object.token %}>{{ object.token }}</a></td>
-                <td>NT : {{ object.total }}</td>
+                {% if object.user_id is user.id %}
+                    <td><a href={% url 'order_detail' object.token %}>{{ object.token }}</a></td>
+                    <td>NT : {{ object.total }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
 
