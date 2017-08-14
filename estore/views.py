@@ -24,8 +24,7 @@ class CartClean(generic.DetailView):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        for product in self.request.cart.items.all():
-            self.request.cart.items.remove(product)
+        self.request.cart.items.clear()
         messages.success(self.request, '已清空購物車')
         return redirect('cart_detail')
 
@@ -96,8 +95,7 @@ class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         messages.success(self.request, '訂單已生成')
-        for product in self.request.cart.items.all():
-            self.request.cart.items.remove(product)
+        self.request.cart.items.clear()
         return reverse('order_list')
 
 
