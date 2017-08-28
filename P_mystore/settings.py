@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+from django.urls import reverse_lazy
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -30,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'estore',
+    'spgateway',
     'bootstrap3',
     'fontawesome',
     'django.contrib.admin',
@@ -126,3 +129,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 INSTALLED_APPS += ('naomi',)
 EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
+
+SPGATEWAY_PROFILE = {
+    'MS12279451': {
+        'MerchantID': 'MS12279451',
+        'HashKey': '5WAES99CuAr2pH0KLlcdUEa7LfZKJBSP',
+        'HashIV': 'xttpCD16dt9Db9nX',
+        'ReturnURL': reverse_lazy('spgateway_NotifyView'),
+        'NotifyURL': '',
+    }
+}
+SPGATEWAY_MERCHANTID = 'MS12279451'
+SPGATEWAY_ORDERMODEL = 'estore.Order'
