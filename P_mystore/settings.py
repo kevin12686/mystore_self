@@ -122,3 +122,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+INSTALLED_APPS += ('naomi',)
+EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')

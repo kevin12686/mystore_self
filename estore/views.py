@@ -10,6 +10,7 @@ from django.views import generic
 
 from .forms import OrderInfoForm, EstoreUserCreationForm
 from .models import Cart_Items, Order, OrderItem, Product
+from .helpers import send_order_mail
 
 
 # Create your views here.
@@ -175,6 +176,14 @@ class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
             each_item.product.quantity = each_item.product.quantity - each_item.quantity
         each_item.product.save()
         self.request.cart.cart_items_set.all().delete()
+        send_order_mail(
+            from_email=None,
+            recipient_list=[self.request.user.email],
+            request=self.request,
+            order=self.object,
+        )
+        print(123)
+
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, **kwargs):
